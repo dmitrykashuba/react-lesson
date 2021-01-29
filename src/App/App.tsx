@@ -1,4 +1,3 @@
-import React from "react";
 import {takeState} from "../App/State";
 import Dashboard from "../Pages/Dashboard";
 import Login from "../Pages/Login";

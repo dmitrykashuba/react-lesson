@@ -37,7 +37,8 @@
     ".npmrc": true,
     "package-lock.json": true,
     "tsconfig.json": true,
-    "src/react-app-env.d.ts": true
+    "src/react-app-env.d.ts": true,
+    "*.md": true
   },
-  "explorerExclude.backup": {}
+  "explorerExclude.backup": null
 }
