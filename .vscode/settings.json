@@ -1,0 +1,43 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  "editor.autoClosingOvertype": "always",
+  "editor.rulers": [
+    120
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    }
+  },
+  "editor.trimAutoWhitespace": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+  "typescript.format.semicolons": "insert",
+  "typescript.preferences.quoteStyle": "double",
+  "javascript.preferences.quoteStyle": "double",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    ".vscode": true,
+    "build": true,
+    "node_modules": true,
+    ".editorconfig": true,
+    ".eslintcache": true,
+    ".gitignore": true,
+    ".npmrc": true,
+    "package-lock.json": true,
+    "tsconfig.json": true,
+    "src/react-app-env.d.ts": true
+  },
+  "explorerExclude.backup": {}
+}

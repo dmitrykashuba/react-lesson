@@ -1,0 +1,32 @@
+{
+  "name": "react-lesson",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "start": "BROWSER=none react-scripts start"
+  },
+  "dependencies": {
+    "bulma": "~0.9.0",
+    "react": "~17.0.0",
+    "react-dom": "~17.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "~17.0.0",
+    "@types/react-dom": "~17.0.0",
+    "react-scripts": "~4.0.0",
+    "typescript": "~4.1.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

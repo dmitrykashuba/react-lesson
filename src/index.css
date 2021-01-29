@@ -1,0 +1,6 @@
+@import "../node_modules/bulma/css/bulma.min.css";
+
+.app {
+  width: 400px;
+  margin: 150px auto 0 auto;
+}
