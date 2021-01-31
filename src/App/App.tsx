@@ -8,7 +8,9 @@ export default () => {
 
     return (
         <div className="app">
-            {state.token ? <Dashboard /> : <Login />}
+            <div className="box">
+                {state.token ? <Dashboard /> : <Login />}
+            </div>
         </div>
     );
 

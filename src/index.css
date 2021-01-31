@@ -1,6 +1,13 @@
 @import "../node_modules/bulma/css/bulma.min.css";
 
 .app {
+  display: flex;
+  align-items: center;
+  margin: auto;
   width: 400px;
-  margin: 150px auto 0 auto;
+  height: 100vh;
+}
+
+.app > .box {
+  width: 100%;
 }

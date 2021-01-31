@@ -1,10 +1,10 @@
 import {createContext, useContext, Dispatch, SetStateAction, PropsWithChildren, useState} from "react";
 
-export type StateType = {
+type StateType = {
     token?: string;
 };
 
-export type StateContextType = {
+type StateContextType = {
     state: StateType,
     setState: Dispatch<SetStateAction<StateType>>;
 };

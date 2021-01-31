@@ -38,7 +38,8 @@
     "package-lock.json": true,
     "tsconfig.json": true,
     "src/react-app-env.d.ts": true,
-    "*.md": true
+    "*.md": true,
+    ".eslintrc": true
   },
   "explorerExclude.backup": null
 }

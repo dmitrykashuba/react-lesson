@@ -2,54 +2,59 @@ import {useState} from "react";
 import {takeState} from "../App/State";
 import Input from "../Elements/Input";
 
+type FormType = {
+    login?: string;
+    password?: string;
+};
+
 export default () => {
 
     const {state, setState} = takeState();
 
-    const [login, setLogin] = useState("");
-    const [password, setPassword] = useState("");
+    const [formValue, setFormValue] = useState<FormType>({});
 
-    const onLoginValueChange = (value: string) => {
-        setLogin(value);
-    };
-
-    const onPasswordValueChange = (value: string) => {
-        setPassword(value);
+    const getFormValueChangeHander = (key: keyof FormType): ((value: string) => void) => {
+        return (value: string) => setFormValue({
+            ...formValue,
+            [key]: value
+        });
     };
 
     const onButtonClick = () => {
-        if (login && password) {
-            const token = `${login}${password}`;
-            setState({...state, token});
+        if (formValue.login && formValue.password) {
+            setState({
+                ...state,
+                token: window.crypto.getRandomValues(new Uint32Array(3)).join().replaceAll(",", "")
+            });
         }
     };
 
     return (
-        <div className="box">
-
+        <>
             <h1 className="title">Log in</h1>
             <h6 className="subtitle is-6">Enter your credentials</h6>
 
             <Input
                 label="Login"
-                value={login}
-                onChange={onLoginValueChange} />
+                name="login"
+                value={formValue.login}
+                onChange={getFormValueChangeHander("login")} />
 
             <Input
                 label="Password"
+                name="password"
                 type="password"
-                value={password}
-                onChange={onPasswordValueChange} />
+                value={formValue.password}
+                onChange={getFormValueChangeHander("password")} />
 
             <div className="is-clearfix mt-6">
                 <button
                     className="button is-primary is-pulled-right"
                     onClick={onButtonClick}>
                     Log in
-          </button>
+                </button>
             </div>
-
-        </div>
+        </>
     );
 
 };
