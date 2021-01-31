@@ -4,7 +4,10 @@ export default () => {
 
     const {state, setState} = takeState();
 
-    const onButtonClick = () => setState({...state, token: undefined});
+    const onButtonClick = () => {
+        delete state.token;
+        setState({...state});
+    };
 
     return (
         <>
