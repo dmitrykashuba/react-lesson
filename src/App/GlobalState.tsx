@@ -1,4 +1,4 @@
-import {createContext, useContext, Dispatch, SetStateAction, PropsWithChildren, useState, useEffect} from "react";
+import {createContext, useContext, Dispatch, SetStateAction, PropsWithChildren, useState} from "react";
 
 type GlobalStateType = {
     token?: string;
