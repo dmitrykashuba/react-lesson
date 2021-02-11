@@ -4,7 +4,7 @@ import Login from "../Pages/Login";
 
 export default () => {
 
-    const {state} = useGlobalState();
+    const [state] = useGlobalState();
 
     return (
         <div className="app">
