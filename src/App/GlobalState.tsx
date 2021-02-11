@@ -15,31 +15,32 @@ export const useGlobalState: () => GlobalStateContextType = () => useContext(Glo
 
 export default ({children}: PropsWithChildren<{}>) => {
 
-    let hidden: string, visibilityChange: string;
+    let hiddenProprtyName: string, visibilityChangeEventName: string;
+
     if (typeof document.hidden !== "undefined") {
-        hidden = "hidden";
-        visibilityChange = "visibilitychange";
+        hiddenProprtyName = "hidden";
+        visibilityChangeEventName = "visibilitychange";
     } else if (typeof (document as any).msHidden !== "undefined") {
-        hidden = "msHidden";
-        visibilityChange = "msvisibilitychange";
+        hiddenProprtyName = "msHidden";
+        visibilityChangeEventName = "msvisibilitychange";
     } else if (typeof (document as any).webkitHidden !== "undefined") {
-        hidden = "webkitHidden";
-        visibilityChange = "webkitvisibilitychange";
+        hiddenProprtyName = "webkitHidden";
+        visibilityChangeEventName = "webkitvisibilitychange";
     } else {
-        visibilityChange = "";
+        visibilityChangeEventName = "";
     }
 
-    const pageHide = "onpagehide" in window ? "pagehide" : "beforeunload";
+    const pageHideEventName = "onpagehide" in window ? "pagehide" : "beforeunload";
 
     const stateKey: string = "state";
 
     const [state, setState] = useState<GlobalStateType>({});
 
-    const storeState = () => {
+    const storeStateInLocalStorage = () => {
         window.localStorage.setItem(stateKey, JSON.stringify(state));
     };
 
-    const restoreState = () => {
+    const restoreStateFromLocalStorage = () => {
         const restoredState: GlobalStateType = JSON.parse(window.localStorage.getItem(stateKey) as string);
         if (restoredState) {
             setState(restoredState);
@@ -47,23 +48,27 @@ export default ({children}: PropsWithChildren<{}>) => {
         }
     };
 
-    const beforeUnloadHandler = () => storeState();
+    const pageHideHandler = () => storeStateInLocalStorage();
 
-    const visibilityChangeHandler = () => (document as any)[hidden]
-        ? storeState()
-        : setTimeout(() => restoreState(), 10);
+    const visibilityChangeHandler = () => (document as any)[hiddenProprtyName]
+        ? storeStateInLocalStorage()
+        : setTimeout(() => restoreStateFromLocalStorage(), 10);
 
     useEffect(() => {
-        restoreState();
+        restoreStateFromLocalStorage();
     }, []);
 
     useEffect(() => {
-        window.removeEventListener(pageHide, beforeUnloadHandler, false);
-        document.removeEventListener(visibilityChange, visibilityChangeHandler, false);
-        window.addEventListener(pageHide, beforeUnloadHandler, false);
-        document.addEventListener(visibilityChange, visibilityChangeHandler, false);
+        window.removeEventListener(pageHideEventName, pageHideHandler, false);
+        window.addEventListener(pageHideEventName, pageHideHandler, false);
+        if (visibilityChangeEventName) {
+            document.removeEventListener(visibilityChangeEventName, visibilityChangeHandler, false);
+            document.addEventListener(visibilityChangeEventName, visibilityChangeHandler, false);
+        }
         return () => {
-            document.removeEventListener(visibilityChange, visibilityChangeHandler, false);
+            if (visibilityChangeEventName) {
+                document.removeEventListener(visibilityChangeEventName, visibilityChangeHandler, false);
+            }
         };
     });
 
