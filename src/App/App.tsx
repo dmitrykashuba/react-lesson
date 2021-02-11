@@ -1,10 +1,10 @@
-import {takeState} from "../App/State";
+import {useGlobalState} from "./GlobalState";
 import Dashboard from "../Pages/Dashboard";
 import Login from "../Pages/Login";
 
 export default () => {
 
-    const {state} = takeState();
+    const {state} = useGlobalState();
 
     return (
         <div className="app">

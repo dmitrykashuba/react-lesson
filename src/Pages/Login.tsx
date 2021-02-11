@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {takeState} from "../App/State";
+import {useGlobalState} from "../App/GlobalState";
 import Input from "../Elements/Input";
 
 type FormType = {
@@ -9,7 +9,7 @@ type FormType = {
 
 export default () => {
 
-    const {state, setState} = takeState();
+    const {state, setState} = useGlobalState();
 
     const [formValue, setFormValue] = useState<FormType>({});
 

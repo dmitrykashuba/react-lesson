@@ -1,17 +1,17 @@
 import {createContext, useContext, Dispatch, SetStateAction, PropsWithChildren, useState, useEffect} from "react";
 
-type StateType = {
+type GlobalStateType = {
     token?: string;
 };
 
-type StateContextType = {
-    state: StateType,
-    setState: Dispatch<SetStateAction<StateType>>;
+type GlobalStateContextType = {
+    state: GlobalStateType,
+    setState: Dispatch<SetStateAction<GlobalStateType>>;
 };
 
-export const StateContext = createContext<StateContextType>({state: {}, setState: () => undefined});
+export const GlobalStateContext = createContext<GlobalStateContextType>({state: {}, setState: () => undefined});
 
-export const takeState: () => StateContextType = () => useContext(StateContext);
+export const useGlobalState: () => GlobalStateContextType = () => useContext(GlobalStateContext);
 
 export default ({children}: PropsWithChildren<{}>) => {
 
@@ -33,14 +33,14 @@ export default ({children}: PropsWithChildren<{}>) => {
 
     const stateKey: string = "state";
 
-    const [state, setState] = useState<StateType>({});
+    const [state, setState] = useState<GlobalStateType>({});
 
     const storeState = () => {
         window.localStorage.setItem(stateKey, JSON.stringify(state));
     };
 
     const restoreState = () => {
-        const restoredState: StateType = JSON.parse(window.localStorage.getItem(stateKey) as string);
+        const restoredState: GlobalStateType = JSON.parse(window.localStorage.getItem(stateKey) as string);
         if (restoredState) {
             setState(restoredState);
             window.localStorage.removeItem(stateKey);
@@ -68,9 +68,9 @@ export default ({children}: PropsWithChildren<{}>) => {
     });
 
     return (
-        <StateContext.Provider value={{state, setState}}>
+        <GlobalStateContext.Provider value={{state, setState}}>
             {children}
-        </StateContext.Provider>
+        </GlobalStateContext.Provider>
     );
 
 };

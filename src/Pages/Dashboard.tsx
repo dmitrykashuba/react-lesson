@@ -1,8 +1,8 @@
-import {takeState} from "../App/State";
+import {useGlobalState} from "../App/GlobalState";
 
 export default () => {
 
-    const {state, setState} = takeState();
+    const {state, setState} = useGlobalState();
 
     const onButtonClick = () => {
         delete state.token;

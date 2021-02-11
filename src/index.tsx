@@ -3,13 +3,13 @@ import "./index.css";
 import {StrictMode} from "react";
 import {render} from "react-dom";
 import App from "./App/App";
-import State from "./App/State";
+import GlobalState from "./App/GlobalState";
 
 render(
     <StrictMode>
-        <State>
+        <GlobalState>
             <App />
-        </State>
+        </GlobalState>
     </StrictMode>,
     document.getElementById("app")
 );
