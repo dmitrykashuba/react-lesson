@@ -6,6 +6,8 @@ import Login from "../Pages/Login";
 
 export default () => {
 
+    const [protectedPath, publicPath] = ["/dashboard", "/login"];
+
     const [state] = useGlobalState();
 
     return (
@@ -14,17 +16,18 @@ export default () => {
                 <BrowserRouter>
                     <Switch>
                         <Route exact path="/">
-                            <Redirect to={state.token ? "/dashboard" : "/login"} />
+                            <Redirect to={state.token ? protectedPath : publicPath} />
                         </Route>
-                        <Route path="/dashboard" render={() =>
-                            !!state.token
+                        <Route path={protectedPath}>
+                            {!!state.token
                                 ? <Dashboard />
                                 : <Redirect to="/" />
-                        } />
-                        <Route path="/login">
+                            }
+                        </Route>
+                        <Route path={publicPath}>
                             <Login />
                         </Route>
-                        <Route component={Error}>
+                        <Route path="*">
                             <Error />
                         </Route>
                     </Switch>
