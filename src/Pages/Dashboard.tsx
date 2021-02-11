@@ -2,7 +2,7 @@ import {useGlobalState} from "../App/GlobalState";
 
 export default () => {
 
-    const {state, setState} = useGlobalState();
+    const [state, setState] = useGlobalState();
 
     const onButtonClick = () => {
         delete state.token;

@@ -9,7 +9,7 @@ type FormType = {
 
 export default () => {
 
-    const {state, setState} = useGlobalState();
+    const [state, setState] = useGlobalState();
 
     const [formValue, setFormValue] = useState<FormType>({});
 
