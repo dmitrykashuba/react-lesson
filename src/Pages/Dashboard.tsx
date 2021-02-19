@@ -1,23 +1,23 @@
 import {Link} from "react-router-dom";
-import {useGlobalState} from "../App/GlobalState";
+import {useInjectable} from "../App/Injectables";
+import {Storage} from "../Injectables/Storage";
 import {aboutPath} from "../Pages/About";
 
 const dashboardPath = "/dashboard";
 
 const Dashboard = () => {
 
-    const [state, setState] = useGlobalState();
+    const storage = useInjectable<Storage>(Storage);
 
     const onButtonClickHandler = () => {
-        delete state.token;
-        setState({...state});
+        storage?.remove("token");
     };
 
     return (
         <>
             <h1 className="title">Dashboard</h1>
             <h6 className="subtitle is-6">This is user dashboard</h6>
-            <span className="tag is-primary"><b style={{paddingRight: 10}}>Token:</b>{state.token}</span>
+            <span className="tag is-primary"><b style={{paddingRight: 10}}>Token:</b>{storage?.get("token")}</span>
 
             <div className="actions is-clearfix">
                 <Link

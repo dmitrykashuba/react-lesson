@@ -1,5 +1,8 @@
+import {Subscription} from "rxjs";
+import {useState, useEffect} from "react";
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
-import {useGlobalState} from "./GlobalState";
+import {useInjectable} from "./Injectables";
+import {Storage} from "../Injectables/Storage";
 import About, {aboutPath} from "../Pages/About";
 import Dashboard, {dashboardPath} from "../Pages/Dashboard";
 import Error from "../Pages/Error";
@@ -7,7 +10,18 @@ import Login, {loginPath} from "../Pages/Login";
 
 const App = () => {
 
-    const [state] = useGlobalState();
+    const storage = useInjectable<Storage>(Storage);
+
+    const [token, setToken] = useState<string>(storage?.get("token"));
+    const [tokenSubscription, setTokenSubscription] = useState<Subscription>();
+
+    useEffect(() => {
+        setTokenSubscription(storage?.getObservable("token").subscribe(setToken));
+    }, [storage]);
+
+    useEffect(() => () => {
+        tokenSubscription?.unsubscribe();
+    }, [tokenSubscription]);
 
     return (
         <div className="app">
@@ -15,13 +29,13 @@ const App = () => {
                 <BrowserRouter>
                     <Switch>
                         <Route exact path="/">
-                            <Redirect to={state.token ? dashboardPath : loginPath} />
+                            <Redirect to={token ? dashboardPath : loginPath} />
                         </Route>
                         <Route path={dashboardPath}>
-                            {!!state.token ? <Dashboard /> : <Redirect to="/" />}
+                            {!!token ? <Dashboard /> : <Redirect to="/" />}
                         </Route>
                         <Route path={loginPath}>
-                            {!state.token ? <Login /> : <Redirect to="/" />}
+                            {!token ? <Login /> : <Redirect to="/" />}
                         </Route>
                         <Route path={aboutPath}>
                             <About />
