@@ -13,7 +13,7 @@ function useInjectable<T>(
 
     if (!injectables) injectables = useContext(InjectorContext);
     try {
-        const name: string | undefined = injectable.constructor.name;
+        const name: string | undefined = injectable.name;
         if (!name) return undefined;
         let instance: InjectableType<T> | undefined = injectables.get(name);
         if (!instance) {

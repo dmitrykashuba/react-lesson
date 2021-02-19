@@ -18,7 +18,7 @@ if (typeof document.hidden !== "undefined") {
 
 const pageHideEventName = "onpagehide" in window ? "pagehide" : "beforeunload";
 
-export class Storage extends Injectable {
+export default class Storage extends Injectable {
 
     private static KEY: string = "storage";
 

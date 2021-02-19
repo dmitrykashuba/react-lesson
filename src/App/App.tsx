@@ -2,7 +2,7 @@ import {Subscription} from "rxjs";
 import {useState, useEffect} from "react";
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import {useInjectable} from "./Injectables";
-import {Storage} from "../Injectables/Storage";
+import Session from "../Injectables/Session";
 import About, {aboutPath} from "../Pages/About";
 import Dashboard, {dashboardPath} from "../Pages/Dashboard";
 import Error from "../Pages/Error";
@@ -10,18 +10,18 @@ import Login, {loginPath} from "../Pages/Login";
 
 const App = () => {
 
-    const storage = useInjectable<Storage>(Storage);
+    const session = useInjectable<Session>(Session);
 
-    const [token, setToken] = useState<string>(storage?.get("token"));
-    const [tokenSubscription, setTokenSubscription] = useState<Subscription>();
+    const [sessionSubscription, setSessionSubscription] = useState<Subscription>();
+    const [token, setToken] = useState<string | undefined>(session?.token);
 
     useEffect(() => {
-        setTokenSubscription(storage?.getObservable("token").subscribe(setToken));
-    }, [storage]);
+        setSessionSubscription(session?.tokenObservable?.subscribe(setToken));
+    }, [session]);
 
     useEffect(() => () => {
-        tokenSubscription?.unsubscribe();
-    }, [tokenSubscription]);
+        sessionSubscription?.unsubscribe();
+    }, [sessionSubscription]);
 
     return (
         <div className="app">

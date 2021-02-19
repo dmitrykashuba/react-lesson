@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {useInjectable} from "../App/Injectables";
-import {Storage} from "../Injectables/Storage";
+import Session from "../Injectables/Session";
 import Input from "../Elements/Input";
 import {aboutPath} from "../Pages/About";
 
@@ -14,7 +14,7 @@ const loginPath = "/login";
 
 const Login = () => {
 
-    const storage = useInjectable<Storage>(Storage);
+    const session = useInjectable<Session>(Session);
 
     const [formValue, setFormValue] = useState<FormType>({});
 
@@ -27,7 +27,7 @@ const Login = () => {
 
     const onButtonClickHandler = () => {
         if (formValue.login && formValue.password) {
-            storage?.set("token", window.crypto.getRandomValues(new Uint32Array(3)).join().replaceAll(",", ""));
+            session?.logIn(window.crypto.getRandomValues(new Uint32Array(3)).join().replaceAll(",", ""));
         }
     };
 
