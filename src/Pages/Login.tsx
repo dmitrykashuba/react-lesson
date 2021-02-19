@@ -26,9 +26,7 @@ const Login = () => {
     };
 
     const onButtonClickHandler = () => {
-        if (formValue.login && formValue.password) {
-            session?.logIn(window.crypto.getRandomValues(new Uint32Array(3)).join().replaceAll(",", ""));
-        }
+        session?.logIn(formValue.login, formValue.password);
     };
 
     return (
