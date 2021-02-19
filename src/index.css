@@ -9,5 +9,12 @@
 }
 
 .app > .box {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  min-height: 400px;
+}
+
+.app > .box > .actions {
+  margin-top: auto;
 }

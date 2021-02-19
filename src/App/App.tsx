@@ -1,12 +1,11 @@
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import {useGlobalState} from "./GlobalState";
-import Dashboard from "../Pages/Dashboard";
+import About, {aboutPath} from "../Pages/About";
+import Dashboard, {dashboardPath} from "../Pages/Dashboard";
 import Error from "../Pages/Error";
-import Login from "../Pages/Login";
+import Login, {loginPath} from "../Pages/Login";
 
-export default () => {
-
-    const [protectedPath, publicPath] = ["/dashboard", "/login"];
+const App = () => {
 
     const [state] = useGlobalState();
 
@@ -16,16 +15,16 @@ export default () => {
                 <BrowserRouter>
                     <Switch>
                         <Route exact path="/">
-                            <Redirect to={state.token ? protectedPath : publicPath} />
+                            <Redirect to={state.token ? dashboardPath : loginPath} />
                         </Route>
-                        <Route path={protectedPath}>
-                            {!!state.token
-                                ? <Dashboard />
-                                : <Redirect to="/" />
-                            }
+                        <Route path={dashboardPath}>
+                            {!!state.token ? <Dashboard /> : <Redirect to="/" />}
                         </Route>
-                        <Route path={publicPath}>
-                            <Login />
+                        <Route path={loginPath}>
+                            {!state.token ? <Login /> : <Redirect to="/" />}
+                        </Route>
+                        <Route path={aboutPath}>
+                            <About />
                         </Route>
                         <Route path="*">
                             <Error />
@@ -37,3 +36,5 @@ export default () => {
     );
 
 };
+
+export default App;

@@ -1,9 +1,11 @@
 import {Link} from "react-router-dom";
 
-const Error = () => (
+const aboutPath = "/about";
+
+const About = () => (
     <>
-        <h1 className="title">Error 404</h1>
-        <h6 className="subtitle is-6">Page not found</h6>
+        <h1 className="title">About</h1>
+        <h6 className="subtitle is-6">This is simple about page</h6>
         <div className="actions is-clearfix">
             <Link className="button is-primary is-outlined is-pulled-left" to="/">
                 Back
@@ -12,4 +14,6 @@ const Error = () => (
     </>
 );
 
-export default Error;
+export default About;
+
+export {aboutPath};

@@ -1,6 +1,7 @@
 import {useState} from "react";
-import {useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useGlobalState} from "../App/GlobalState";
+import {aboutPath} from "../Pages/About";
 import Input from "../Elements/Input";
 
 type FormType = {
@@ -8,29 +9,26 @@ type FormType = {
     password?: string;
 };
 
-export default () => {
+const loginPath = "/login";
+
+const Login = () => {
 
     const [state, setState] = useGlobalState();
 
     const [formValue, setFormValue] = useState<FormType>({});
 
-    const history = useHistory();
-
-    const getFormValueChangeHander = (key: keyof FormType): ((value: string) => void) => {
+    const getFormValueChangeHandler = (key: keyof FormType): ((value: string) => void) => {
         return (value: string) => setFormValue({
             ...formValue,
             [key]: value
         });
     };
 
-    const onButtonClick = () => {
+    const onButtonClickHandler = () => {
         if (formValue.login && formValue.password) {
             setState({
                 ...state,
                 token: window.crypto.getRandomValues(new Uint32Array(3)).join().replaceAll(",", "")
-            });
-            setTimeout(() => {
-                history.replace("/");
             });
         }
     };
@@ -44,19 +42,24 @@ export default () => {
                 label="Login"
                 name="login"
                 value={formValue.login}
-                onChange={getFormValueChangeHander("login")} />
+                onChange={getFormValueChangeHandler("login")} />
 
             <Input
                 label="Password"
                 name="password"
                 type="password"
                 value={formValue.password}
-                onChange={getFormValueChangeHander("password")} />
+                onChange={getFormValueChangeHandler("password")} />
 
-            <div className="is-clearfix mt-6">
+            <div className="actions is-clearfix">
+                <Link
+                    className="button is-primary is-outlined is-pulled-left"
+                    to={aboutPath}>
+                    About
+                </Link>
                 <button
                     className="button is-primary is-pulled-right"
-                    onClick={onButtonClick}>
+                    onClick={onButtonClickHandler}>
                     Log in
                 </button>
             </div>
@@ -64,3 +67,7 @@ export default () => {
     );
 
 };
+
+export default Login;
+
+export {loginPath};

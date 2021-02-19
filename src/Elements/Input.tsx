@@ -1,6 +1,6 @@
 import {useState, useEffect, ChangeEvent} from "react";
 
-type Props = {
+type InputProps = {
     label?: string;
     name: string;
     type?: "text" | "password";
@@ -8,7 +8,7 @@ type Props = {
     onChange?: (value: string) => void;
 };
 
-export default ({label, name, type, value, onChange}: Props) => {
+const Input = ({label, name, type, value, onChange}: InputProps) => {
 
     const [inputLabel, setInputLabel] = useState(label || "");
     const [inputName, setInputName] = useState(name);
@@ -38,3 +38,5 @@ export default ({label, name, type, value, onChange}: Props) => {
     );
 
 };
+
+export default Input;

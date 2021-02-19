@@ -1,10 +1,14 @@
+import {Link} from "react-router-dom";
 import {useGlobalState} from "../App/GlobalState";
+import {aboutPath} from "../Pages/About";
 
-export default () => {
+const dashboardPath = "/dashboard";
+
+const Dashboard = () => {
 
     const [state, setState] = useGlobalState();
 
-    const onButtonClick = () => {
+    const onButtonClickHandler = () => {
         delete state.token;
         setState({...state});
     };
@@ -15,10 +19,15 @@ export default () => {
             <h6 className="subtitle is-6">This is user dashboard</h6>
             <span className="tag is-primary"><b style={{paddingRight: 10}}>Token:</b>{state.token}</span>
 
-            <div className="is-clearfix mt-6">
+            <div className="actions is-clearfix">
+                <Link
+                    className="button is-primary is-outlined is-pulled-left"
+                    to={aboutPath}>
+                    About
+                </Link>
                 <button
                     className="button is-primary is-pulled-right"
-                    onClick={onButtonClick}>
+                    onClick={onButtonClickHandler}>
                     Log out
                 </button>
             </div>
@@ -26,3 +35,7 @@ export default () => {
     );
 
 };
+
+export default Dashboard;
+
+export {dashboardPath};

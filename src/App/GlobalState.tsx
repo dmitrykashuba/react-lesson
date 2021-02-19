@@ -9,11 +9,11 @@ type GlobalStateContextType = [
     Dispatch<SetStateAction<GlobalStateType>>
 ];
 
-export const GlobalStateContext = createContext<GlobalStateContextType>([{}, () => undefined]);
+const GlobalStateContext = createContext<GlobalStateContextType>([{}, () => undefined]);
 
-export const useGlobalState: () => GlobalStateContextType = () => useContext(GlobalStateContext);
+const useGlobalState: () => GlobalStateContextType = () => useContext(GlobalStateContext);
 
-export default ({children}: PropsWithChildren<{}>) => {
+const GlobalState = ({children}: PropsWithChildren<{}>) => {
 
     let hiddenProprtyName: string, visibilityChangeEventName: string;
 
@@ -79,3 +79,7 @@ export default ({children}: PropsWithChildren<{}>) => {
     );
 
 };
+
+export default GlobalState;
+
+export {useGlobalState};
