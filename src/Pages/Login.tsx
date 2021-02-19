@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {useHistory} from "react-router-dom";
 import {useGlobalState} from "../App/GlobalState";
 import Input from "../Elements/Input";
 
@@ -13,6 +14,8 @@ export default () => {
 
     const [formValue, setFormValue] = useState<FormType>({});
 
+    const history = useHistory();
+
     const getFormValueChangeHander = (key: keyof FormType): ((value: string) => void) => {
         return (value: string) => setFormValue({
             ...formValue,
@@ -25,6 +28,9 @@ export default () => {
             setState({
                 ...state,
                 token: window.crypto.getRandomValues(new Uint32Array(3)).join().replaceAll(",", "")
+            });
+            setTimeout(() => {
+                history.replace("/");
             });
         }
     };
