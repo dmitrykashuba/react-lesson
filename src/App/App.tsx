@@ -2,7 +2,7 @@ import {Subscription} from "rxjs";
 import {useState, useEffect} from "react";
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import {useInjectable} from "./Injectables";
-import Session from "../Injectables/Session";
+import Session from "../Services/SessionService";
 import About, {aboutPath} from "../Pages/About";
 import Dashboard, {dashboardPath} from "../Pages/Dashboard";
 import Error from "../Pages/Error";

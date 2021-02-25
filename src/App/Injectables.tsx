@@ -4,52 +4,40 @@ type InjectableType<T> = T extends Injectable ? T & Injectable : T;
 
 type InjectablesType<T> = Map<string, InjectableType<T>>;
 
-const InjectorContext = createContext<InjectablesType<any>>(undefined as any);
-
-function useInjectable<T>(
+export function useInjectable<T>(
     injectable: new () => InjectableType<T>,
     injectables?: InjectablesType<T>
 ): InjectableType<T> | undefined {
-
     if (!injectables) injectables = useContext(InjectorContext);
     try {
-        const name: string | undefined = injectable.name;
-        if (!name) return undefined;
-        let instance: InjectableType<T> | undefined = injectables.get(name);
+        let instance: InjectableType<T> | undefined = injectables.get(injectable.name);
         if (!instance) {
-            instance = new injectable();
-            Object.defineProperty(instance, "inject", {
+            Object.defineProperty(injectable, "inject", {
                 configurable: false,
                 writable: false,
                 value: (injectable: new () => InjectableType<T>) => useInjectable(injectable, injectables)
             });
-            injectables.set(name, instance);
+            instance = new injectable();
+            injectables.set(injectable.name, instance);
         }
         return instance;
     } catch {
         return undefined;
     }
+};
+
+export class Injectable {
+
+    protected static readonly inject: <T>(injectable: new () => InjectableType<T>) => InjectableType<T> | undefined;
 
 };
 
-class Injectable {
+const InjectorContext = createContext(new Map());
 
-    protected readonly inject!: <T>(injectable: new () => InjectableType<T>) => InjectableType<T> | undefined;
-
-};
-
-const Injectables = ({children}: PropsWithChildren<{}>) => {
-
-    const injectables: InjectablesType<any> = new Map();
-
-    return (
-        <InjectorContext.Provider value={injectables}>
-            {children}
-        </InjectorContext.Provider>
-    );
-
-};
+const Injectables = ({children}: PropsWithChildren<{}>) => (
+    <InjectorContext.Provider value={new Map()}>
+        {children}
+    </InjectorContext.Provider>
+);
 
 export default Injectables;
-
-export {useInjectable, Injectable};

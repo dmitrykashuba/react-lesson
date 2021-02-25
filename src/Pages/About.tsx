@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-const aboutPath = "/about";
+export const aboutPath = "/about";
 
 const About = () => (
     <>
@@ -15,5 +15,3 @@ const About = () => (
 );
 
 export default About;
-
-export {aboutPath};

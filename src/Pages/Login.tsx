@@ -1,20 +1,20 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {useInjectable} from "../App/Injectables";
-import Session from "../Injectables/Session";
+import SessionService from "../Services/SessionService";
 import Input from "../Elements/Input";
-import {aboutPath} from "../Pages/About";
+import {aboutPath} from "./About";
 
 type FormType = {
     login?: string;
     password?: string;
 };
 
-const loginPath = "/login";
+export const loginPath = "/login";
 
 const Login = () => {
 
-    const session = useInjectable<Session>(Session);
+    const sessionService = useInjectable<SessionService>(SessionService);
 
     const [formValue, setFormValue] = useState<FormType>({});
 
@@ -27,7 +27,7 @@ const Login = () => {
 
     const onButtonClickHandler = () => {
         if (formValue.login && formValue.password) {
-            session?.logIn(window.crypto.getRandomValues(new Uint32Array(3)).join().replaceAll(",", ""));
+            sessionService?.logIn("token_string_value");
         }
     };
 
@@ -67,5 +67,3 @@ const Login = () => {
 };
 
 export default Login;
-
-export {loginPath};

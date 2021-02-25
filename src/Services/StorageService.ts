@@ -18,7 +18,7 @@ if (typeof document.hidden !== "undefined") {
 
 const pageHideEventName = "onpagehide" in window ? "pagehide" : "beforeunload";
 
-export default class Storage extends Injectable {
+export default class StorageService extends Injectable {
 
     private static KEY: string = "storage";
 
@@ -83,16 +83,18 @@ export default class Storage extends Injectable {
     }
 
     private storeStateInLocalStorage() {
-        window.localStorage.setItem(Storage.KEY, JSON.stringify(this.inMemoryStorage));
+        window.localStorage.setItem(StorageService.KEY, JSON.stringify(this.inMemoryStorage));
     };
 
     private restoreStateFromLocalStorage() {
-        const restored: any = JSON.parse(window.localStorage.getItem(Storage.KEY) as string);
+        const restored: any = JSON.parse(window.localStorage.getItem(StorageService.KEY) as string);
         if (restored) {
-            window.localStorage.removeItem(Storage.KEY);
+            window.localStorage.removeItem(StorageService.KEY);
             this.inMemoryStorage = restored;
             Object.keys(this.emitters).forEach((key: string) => {
-                if (this.emitters[key] instanceof Subject) this.emitters[key].next(this.inMemoryStorage[key] || undefined);
+                if (this.emitters[key] instanceof Subject) {
+                    this.emitters[key].next(this.inMemoryStorage[key] || undefined);
+                }
             });
         }
     }
