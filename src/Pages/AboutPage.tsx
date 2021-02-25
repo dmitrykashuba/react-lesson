@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
 
-export const aboutPath = "/about";
+export const aboutPagePath = "/about";
 
-const About = () => (
+const AboutPage = () => (
     <>
         <h1 className="title">About</h1>
         <h6 className="subtitle is-6">This is simple about page</h6>
@@ -14,4 +14,4 @@ const About = () => (
     </>
 );
 
-export default About;
+export default AboutPage;

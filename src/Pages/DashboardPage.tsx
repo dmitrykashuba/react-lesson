@@ -1,11 +1,11 @@
 import {Link} from "react-router-dom";
 import {useInjectable} from "../App/Injectables";
 import SessionService from "../Services/SessionService";
-import {aboutPath} from "./About";
+import {aboutPagePath} from "./AboutPage";
 
-export const dashboardPath = "/dashboard";
+export const dashboardPagePath = "/dashboard";
 
-const Dashboard = () => {
+const DashboardPage = () => {
 
     const sessionService = useInjectable<SessionService>(SessionService);
 
@@ -22,7 +22,7 @@ const Dashboard = () => {
             <div className="actions is-clearfix">
                 <Link
                     className="button is-primary is-outlined is-pulled-left"
-                    to={aboutPath}>
+                    to={aboutPagePath}>
                     About
                 </Link>
                 <button
@@ -36,4 +36,4 @@ const Dashboard = () => {
 
 };
 
-export default Dashboard;
+export default DashboardPage;

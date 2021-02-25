@@ -3,10 +3,10 @@ import {useState, useEffect} from "react";
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import {useInjectable} from "./Injectables";
 import Session from "../Services/SessionService";
-import About, {aboutPath} from "../Pages/About";
-import Dashboard, {dashboardPath} from "../Pages/Dashboard";
-import Error from "../Pages/Error";
-import Login, {loginPath} from "../Pages/Login";
+import AboutPage, {aboutPagePath} from "../Pages/AboutPage";
+import DashboardPage, {dashboardPagePath} from "../Pages/DashboardPage";
+import ErrorPage from "../Pages/ErrorPage";
+import LoginPage, {loginPagePath} from "../Pages/LoginPage";
 
 const App = () => {
 
@@ -29,19 +29,19 @@ const App = () => {
                 <BrowserRouter>
                     <Switch>
                         <Route exact path="/">
-                            <Redirect to={token ? dashboardPath : loginPath} />
+                            <Redirect to={token ? dashboardPagePath : loginPagePath} />
                         </Route>
-                        <Route path={dashboardPath}>
-                            {!!token ? <Dashboard /> : <Redirect to="/" />}
+                        <Route path={dashboardPagePath}>
+                            {!!token ? <DashboardPage /> : <Redirect to="/" />}
                         </Route>
-                        <Route path={loginPath}>
-                            {!token ? <Login /> : <Redirect to="/" />}
+                        <Route path={loginPagePath}>
+                            {!token ? <LoginPage /> : <Redirect to="/" />}
                         </Route>
-                        <Route path={aboutPath}>
-                            <About />
+                        <Route path={aboutPagePath}>
+                            <AboutPage />
                         </Route>
                         <Route path="*">
-                            <Error />
+                            <ErrorPage />
                         </Route>
                     </Switch>
                 </BrowserRouter>

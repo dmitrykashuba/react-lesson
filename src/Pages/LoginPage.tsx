@@ -3,16 +3,16 @@ import {Link} from "react-router-dom";
 import {useInjectable} from "../App/Injectables";
 import SessionService from "../Services/SessionService";
 import Input from "../Elements/Input";
-import {aboutPath} from "./About";
+import {aboutPagePath} from "./AboutPage";
 
 type FormType = {
     login?: string;
     password?: string;
 };
 
-export const loginPath = "/login";
+export const loginPagePath = "/login";
 
-const Login = () => {
+const LoginPage = () => {
 
     const sessionService = useInjectable<SessionService>(SessionService);
 
@@ -52,7 +52,7 @@ const Login = () => {
             <div className="actions is-clearfix">
                 <Link
                     className="button is-primary is-outlined is-pulled-left"
-                    to={aboutPath}>
+                    to={aboutPagePath}>
                     About
                 </Link>
                 <button
@@ -66,4 +66,4 @@ const Login = () => {
 
 };
 
-export default Login;
+export default LoginPage;
